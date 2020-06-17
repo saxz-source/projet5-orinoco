@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="list-unstyled">
+                <li><a href="#">Accueil</a>
+                </li>
+                <li><a href="#">Panier</a></li>
+            </ul>
+        </nav>
+
+        <h1>Orinoco</h1>
+    </header>
+
+
+    <div class="container">
+        <main class="col-12">
+            <div class="row">
+                <h2 class="col-12">Nos produits</h2>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row apercus">
+                        <ul class="col-12 col-md-8 list-unstyled apercus">
+
+                            <li class="col-5 m-2 apercus_cadre">
+                                <a href="produit.html?id=5be9cc611c9d440000c1421e">
+                                    <div>
+                                        <img src="images/oak_1.jpg" alt="Meuble en chêne" class="mw-100"
+                                            id="crossTable" />
+                                        <ul class="list-unstyled">
+                                            <li>Cross Table</li>
+                                            <li>59900</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="col-5 m-2 apercus_cadre">
+                                <a href="produit.html?id=5beaadda1c9d440000a57d98" id="coffeeTable">
+                                    <div>
+                                        <img src="images/oak_2.jpg" alt="Meuble en chêne" class="mw-100" />
+                                        <ul class="list-unstyled">
+                                            <li>Coffee Table</li>
+                                            <li>89900</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="col-5 m-2 apercus_cadre">
+                                <a href="produit.html?id=5beaae361c9d440000a57d99" id="diningTable">
+                                    <div>
+                                        <img src="images/oak_3.jpg" alt="Meuble en chêne" class="mw-100" />
+                                        <ul class="list-unstyled">
+                                            <li>Dining Table</li>
+                                            <li>109900</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="col-5 m-2  apercus_cadre">
+                                <a href="produit.html?id=5beaaf2e1c9d440000a57d9a" id="bench">
+                                    <div>
+                                        <img src="images/oak_4.jpg" alt="Meuble en chêne" class="mw-100" />
+                                        <ul class="list-unstyled">
+                                            <li>Bench</li>
+                                            <li>39900</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="col-12 col-md-4  ">
+                            <div class="row produits-right ">
+
+                                <div class="col-10 col-md-10 apercus_cadre--right ">
+                                    <a href="produit.html?id=5beab2061c9d440000a57d9b" id="vintageChair">
+                                        <div>
+                                            <img src="images/oak_5.jpg" alt="Chaise en chêne" class="mw-100" />
+                                            <ul class="list-unstyled">
+                                                <li>Vintage Chair</li>
+                                                <li>59900</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <footer id="footer">
+        <p>Orinoco</p>
+    </footer>
+
+
+
+
+
+
+
+    <script>
+
+
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                response = JSON.parse(this.responseText);
+
+            }
+        };
+        request.open("GET", "http://localhost:3000/api/furniture");
+        request.send();
+
+
+
+
+    </script>
+
+    <script>
+        let produit = "";
+        const crossTable = document.getElementById("crossTable");
+        const bench = document.getElementById("bench");
+        const diningTable = document.getElementById("diningTable");
+        const vintageChair = document.getElementById("vintageChair");
+        const coffeeTable = document.getElementById("coffeeTable");
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Votre produit</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="list-unstyled">
+        <li><a href="index.html">Accueil</a>
+        </li>
+        <li><a href="#">Panier</a></li>
+      </ul>
+    </nav>
+
+    <h1>Votre Produit</h1>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="col-12">
+        <div class="row">
+
+          <div class="col-6" id="imageProduit">
+
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <ul class="col- 12 list-unstyled">
+                <li id="name"></li>
+                <li id="price"></li>
+                <li id="description"></li>
+              </ul>
+              <div class="col-12">
+                <form action="customise">
+                  <label for="optionsCustomise"> Sélectionnez votre vernis : </label>
+                  <select name="" id="optionsCustomise">
+
+
+
+                  </select>
+
+                  <button type="submit"></button>
+
+
+                </form>
+              </div>
+
+
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+      </div>
+
+
+
+
+
+
+    </div>
+
+
+  </main>
+  <footer>
+
+  </footer>
+
+
+  <script>
+
+    let params = new URLSearchParams(document.location.search.substring(1));
+    let productId = params.get("id");
+    console.log(productId);
+
+    let productName = document.getElementById("name");
+    let productPrice = document.getElementById("price");
+    let productDescription = document.getElementById("description");
+    let productCustomise = document.getElementById("optionsCustomise");
+    let productImage = document.getElementById("imageProduit");
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+      if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log(response);
+        for (let i in response) {
+          console.log(response[i]._id);
+          if (response[i]._id == productId) {
+            productName.innerHTML = response[i].name;
+            productPrice.innerHTML = response[i].price;
+            productDescription.innerHTML = response[i].description;
+            let nbOptions = response[i].varnish;
+            for (let j in nbOptions) {
+              let newOption = document.createElement("option");
+              optionsCustomise.appendChild(newOption);
+              newOption.innerHTML = response[i].varnish[j];
+            };
+          }
+        };
+      }
+    };
+    request.open("GET", "http://localhost:3000/api/furniture");
+    request.send();
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>
