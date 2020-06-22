@@ -16,9 +16,11 @@
     <header>
         <nav>
             <ul class="list-unstyled">
-                <li><a href="#">Accueil</a>
+                <li><a href="index.html">Accueil</a>
                 </li>
-                <li><a href="#">Panier</a></li>
+                <li><a href="panier.html">Panier <div>
+                    <p id="contenuPanier"></p>
+                  </div></a></li>
             </ul>
         </nav>
 
@@ -119,37 +121,18 @@
 
 
 
-
-
-
-
     <script>
-
-
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                response = JSON.parse(this.responseText);
-
-            }
-        };
-        request.open("GET", "http://localhost:3000/api/furniture");
-        request.send();
-
-
-
-
-    </script>
-
-    <script>
-        let produit = "";
-        const crossTable = document.getElementById("crossTable");
-        const bench = document.getElementById("bench");
-        const diningTable = document.getElementById("diningTable");
-        const vintageChair = document.getElementById("vintageChair");
-        const coffeeTable = document.getElementById("coffeeTable");
-
-
+        
+ // 1- initalisation du nombre de produit dans le paniers.
+ var panierEffectif;
+    // Définition de l'affichage du nombre de produits dans le panier.
+    panierEffectif = localStorage.nbCommandes;
+    if (localStorage.nbCommandes == undefined){
+      localStorage.nbCommandes = 0;
+    }
+   
+    let nbCommandes = document.getElementById("contenuPanier");
+    nbCommandes.innerHTML = localStorage.nbCommandes;
 
     </script>
 

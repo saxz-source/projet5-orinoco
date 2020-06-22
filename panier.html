@@ -1,42 +1,155 @@
 <!doctype html>
 <html lang="fr">
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
 
-   
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Votre panier</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-          <ul class="list-unstyled">
-              <li><a href="#">Accueil</a>
-              </li>
-              <li><a href="#">Panier</a></li>
-          </ul>
-      </nav>
 
-      <h1>Votre Panier</h1>
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Votre panier</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="list-unstyled">
+        <li><a href="index.html">Accueil</a>
+        </li>
+        <li><a href="panier.html">Panier</a></li>
+      </ul>
+    </nav>
+
+    <h1>Votre Panier</h1>
   </header>
   <main>
+    <div class="container">
+
+      <div class="col-12" id="corpsPanier">
+
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="col-4">
+            Total :
+          </div>
+          <div class="col-8" id="facture">
+            0
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+
+            <form action="">
+              <label for="nom">
+                Nom
+              </label>
+              <input type="text" id="nom" required>
+              <label for="prenom">
+                Prénom
+              </label>
+              <input type="text" id="prenom" required>
+              <label for="adresse">
+                Adresse
+              </label>
+              <input type="text" id="adresse" required>
+              <label for="ville">
+                Ville
+              </label>
+              <input type="text" id="ville" required>
+              <label for="mail">
+                Mail
+              </label>
+              <input type="email" id="mail" required>
+
+              <button type="submit">Valider ma commande</button>
+
+            </form>
+
+
+
+          </div>
+        </div>
+      </div>
 
 
 
 
-
+    </div>
 
   </main>
-<footer>
+  <footer>
 
-</footer>
-   
-
+  </footer>
 
 
-    
-  </body>
+  <script>
+
+    // Si le panier est vide
+    if (localStorage.nbCommandes < 1) {
+      emplacement.innerHTML = "Il n'y a aucun article dans votre panier";
+    };
+
+    //On récupère les données du produit (id, prix, vernis choisi) depuis le localStorage.
+    let commandeFinale = JSON.parse(localStorage.commande);
+
+    console.log(commandeFinale[1]);
+
+
+
+    //On implémente le résumé de la commande.
+    let emplacement = document.getElementById("corpsPanier");
+    for (let i in commandeFinale) {
+      var newRow = document.createElement('div');
+      newRow.classList.add("row");
+      emplacement.appendChild(newRow);
+
+      var nameSlot = document.createElement('div');
+      nameSlot.classList.add("col-4");
+      nameSlot.innerHTML = commandeFinale[i].name;
+      newRow.appendChild(nameSlot);
+
+      var vernisSlot = document.createElement('div');
+      vernisSlot.classList.add("col-4");
+      vernisSlot.innerHTML = commandeFinale[i].vernis;
+      newRow.appendChild(vernisSlot);
+
+      var prixSlot = document.createElement('div');
+      prixSlot.classList.add("col-4");
+      prixSlot.innerHTML = commandeFinale[i].prix + ' €';
+      newRow.appendChild(prixSlot);
+
+    }
+
+    //On calcule le prix total du panier.
+    let sommePanier = function (cout) {
+      let somme = 0;
+      for (let i in cout) {
+        somme = somme + parseInt(cout[i].prix);
+      };
+      return somme
+    };
+
+    let coutTotal = document.getElementById('facture');
+    coutTotal.innerHTML = sommePanier(commandeFinale) + " €";
+
+
+
+
+
+
+
+
+  </script>
+
+
+</body>
+
 </html>
