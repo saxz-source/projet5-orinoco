@@ -9920,14 +9920,87 @@ h3 {
   flex-wrap: wrap;
 }
 
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+h2 {
+  padding: 2.5rem 2rem 2rem;
+  font-family: "edo";
+  letter-spacing: 3px;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+@font-face {
+  src: url("../css/fonts/edo/edo.ttf") format("truetype");
+  font-family: "edo";
+}
+.fontEdo {
+  font-family: "edo";
+}
+
 nav {
-  padding: 2% 10% 1%;
-  background: pink;
+  padding: 1.1% 10%;
+  background: linear-gradient(to bottom, #8F5BFE 80%, #E68A21);
 }
 nav ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
+}
+nav ul li a p {
+  color: #E68A21;
+  font-size: 1.5rem;
+  padding: 0 15px;
+}
+
+#contenuPanier {
+  border-radius: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  background: #E68A21;
+  box-shadow: 0px 3px 0px 2px #8F5BFE;
+  border-radius: 30px;
+  border-radius: 30px;
+  margin-top: -2rem;
+  padding: 0.8rem;
+  font-family: "edo";
+}
+
+footer {
+  background: linear-gradient(to top, #8F5BFE 80%, #E68A21);
+  padding: 2rem 4rem;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer a {
+  color: #E68A21;
+  padding: 1rem;
+  font-size: 1.3rem;
+}
+
+#envoiCommande {
+  margin-top: 30px;
 }
 
 .apercus {
@@ -9937,14 +10010,31 @@ nav ul {
   flex-wrap: wrap;
 }
 .apercus_cadre {
-  border: 2px solid black;
-  width: 20vh;
+  border: 2px solid #8F5BFE;
+  background-color: #E68A21;
+  color: black;
+  font-weight: bold;
   padding: 0;
+  margin: 0.5rem;
+  border-radius: 15px;
+  overflow: hidden;
 }
-.apercus_cadre--right {
-  padding: 0;
+.apercus_cadre .cadreImage {
+  height: 28vh;
+  border-bottom: 2px solid black;
+}
+.apercus_cadre .cadreImage img {
+  width: 100%;
   height: 100%;
-  border: 2px solid black;
+  padding: 0;
+  object-fit: contain;
+  object-position: top;
+}
+.apercus_cadre li {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .produit-right {
@@ -9952,6 +10042,117 @@ nav ul {
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+#ajoutAuPanier {
+  border-radius: 12px;
+  color: black;
+  font-weight: bold;
+  background-color: #E68A21;
+  border: 1px solid #8F5BFE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+#optionsCustomise {
+  color: black;
+  font-weight: bold;
+  border: 1px solid #8F5BFE;
+}
+
+.optionVernis {
+  color: black;
+  font-weight: bold;
+  border: 1px solid #8F5BFE;
+}
+
+#imageProduit {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.sectionProduit {
+  padding-top: 3rem;
+}
+.sectionProduit img {
+  border: 1px solid #8F5BFE;
+}
+.sectionProduit ul {
+  color: black;
+  font-size: 1.1rem;
+}
+
+#name {
+  color: #8F5BFE;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+#description {
+  padding: 0.5rem 0;
+}
+
+#labelSelect {
+  color: black;
+  font-size: 1.1rem;
+}
+
+.detailProduitSelect, .imageProduitSelect {
+  padding: 2rem;
+}
+
+select {
+  margin: 0;
+}
+
+.removeButton {
+  border-radius: 12px;
+  color: black;
+  font-weight: bold;
+  background-color: #E68A21;
+  border: 1px solid #8F5BFE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+}
+
+.panierRow {
+  padding: 0.5rem 0;
+}
+
+#envoiCommande {
+  border-radius: 12px;
+  color: black;
+  font-weight: bold;
+  background-color: #E68A21;
+  border: 1px solid #8F5BFE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+#facture {
+  font-size: 1.5rem;
+  border: 1.5px solid #8F5BFE;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.confirm {
+  flex-direction: column;
+}
+.confirm h3 {
+  padding: 3rem;
+}
+.confirm p {
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */

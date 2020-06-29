@@ -16,60 +16,80 @@
   <header>
     <nav>
       <ul class="list-unstyled">
-        <li><a href="index.html">Accueil</a>
+        <li>
+          <a href="index.html" class="flexcenter">
+            <p>Accueil</p>
+          </a>
         </li>
-        <li><a href="panier.html">Panier</a></li>
+        <li>
+          <a href="panier.html" class="flexcenter">
+            <p>Panier </p>
+
+            <p id="contenuPanier"></p>
+
+          </a>
+        </li>
       </ul>
     </nav>
+    <div class="col-12 flexcenter">
+      <h1 class="col-4 flexcenter"> Orinoco</h1>
 
-    <h1>Votre Panier</h1>
+    </div>
   </header>
-  <main>
-    <div class="container">
 
+  <main class="container">
+
+    <section>
+      <h2>Votre Panier</h2>
       <div class="col-12" id="corpsPanier">
 
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="col-4">
-            Total :
-          </div>
-          <div class="col-8" id="facture">
-            0
-          </div>
-        </div>
       </div>
-
 
       <div class="row">
         <div class="col-12">
           <div class="row">
 
-            <form action="">
+
+            <div class="col-3" id="facture">
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="row">
+        <div class="col-8 ">
+          <h2>Vos coordonnées</h2>
+          <div class="row ">
+
+            <form >
               <label for="nom">
                 Nom
               </label>
-              <input type="text" id="nom" required>
+              <input type="text" id="nom" pattern="[\p{L}' -]+" required class="col-12 form-control">
+              
               <label for="prenom">
                 Prénom
               </label>
-              <input type="text" id="prenom" required>
+              <input type="text" id="prenom" pattern="[\p{L}'-]+"  required class="col-12 form-control">
               <label for="adresse">
                 Adresse
               </label>
-              <input type="text" id="adresse" required>
+              <input type="text" id="adresse" pattern="[0-9\p{L}' -]+" required class="col-12 form-control">
               <label for="ville">
                 Ville
               </label>
-              <input type="text" id="ville" required>
+              <input type="text" id="ville" pattern="[A-Za-z' -]+" required class="col-12 form-control">
               <label for="mail">
                 Mail
               </label>
-              <input type="email" id="mail" required>
+              <input type="email" id="mail" required class="col-12 form-control">
 
-              <button type="submit">Valider ma commande</button>
+              <button  id="envoiCommande">Envoyer ma commande</button>
 
             </form>
 
@@ -78,55 +98,102 @@
           </div>
         </div>
       </div>
+    </section>
 
 
 
-
-    </div>
 
   </main>
   <footer>
+    <ul>
+      <li><a href="index.html">Liste des produits</a></li>
+      <li><a href="panier.html">Panier</a></li>
+    </ul>
+    <div class="fontEdo"> Orinoco</div>
+
 
   </footer>
 
 
   <script>
 
-    // Si le panier est vide
-    if (localStorage.nbCommandes < 1) {
+    //RESUME DU PANIER
+
+    //On identifie l'élément HTML.
+
+    let emplacement = document.getElementById("corpsPanier");
+
+    // Si le panier est vide :
+    if (localStorage.nbCommandes < 1 || localStorage.nbCommandes == false) {
       emplacement.innerHTML = "Il n'y a aucun article dans votre panier";
     };
 
-    //On récupère les données du produit (id, prix, vernis choisi) depuis le localStorage.
+    //S'il ne l'est pas : On récupère les données du produit (id, vernis choisi) depuis le localStorage.
     let commandeFinale = JSON.parse(localStorage.commande);
 
-    console.log(commandeFinale[1]);
-
-
-
     //On implémente le résumé de la commande.
-    let emplacement = document.getElementById("corpsPanier");
-    for (let i in commandeFinale) {
-      var newRow = document.createElement('div');
-      newRow.classList.add("row");
-      emplacement.appendChild(newRow);
 
-      var nameSlot = document.createElement('div');
-      nameSlot.classList.add("col-4");
-      nameSlot.innerHTML = commandeFinale[i].name;
-      newRow.appendChild(nameSlot);
+    for (let i in commandeFinale) {                 // 
+      var request = new XMLHttpRequest();
 
-      var vernisSlot = document.createElement('div');
-      vernisSlot.classList.add("col-4");
-      vernisSlot.innerHTML = commandeFinale[i].vernis;
-      newRow.appendChild(vernisSlot);
+      request.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          var newRow = document.createElement('div');
+          newRow.classList.add("row");
+          newRow.classList.add("panierRow");
+          emplacement.appendChild(newRow);
 
-      var prixSlot = document.createElement('div');
-      prixSlot.classList.add("col-4");
-      prixSlot.innerHTML = commandeFinale[i].prix + ' €';
-      newRow.appendChild(prixSlot);
+          var nameSlot = document.createElement('div');  // Création de l'indication du nom du produit choisi
+          nameSlot.classList.add("col-3");
+          nameSlot.innerHTML = commandeFinale[i].name;
+          newRow.appendChild(nameSlot);
+
+          var vernisSlot = document.createElement('div');  // Création de l'indication du venis choisi
+          vernisSlot.classList.add("col-3");
+          vernisSlot.innerHTML = commandeFinale[i].vernis;
+          newRow.appendChild(vernisSlot);
+
+          var prixSlot = document.createElement('div');      // Création de l'indication du prix
+          prixSlot.classList.add("col-3");
+          prixSlot.innerHTML = commandeFinale[i].prix;
+          newRow.appendChild(prixSlot);
+
+          var removeSlot = document.createElement('button');  // Création du bouton de suppression du panier
+          removeSlot.classList.add("col-1");
+          removeSlot.classList.add("removeButton");
+          removeSlot.setAttribute("title", "Cliquer pour retirer du panier");
+          removeSlot.innerHTML = "X";
+          newRow.appendChild(removeSlot);
+          removeSlot.addEventListener('click', function (e) {     // On configure le bouton de suppression du panier
+            e.preventDefault();
+            if (confirm('Retirer cet article ?')) {
+              var pos = commandeFinale.indexOf(commandeFinale[i]);
+              console.log(pos);
+              commandeFinale.splice(pos, 1);
+              console.log(commandeFinale);
+              localStorage.removeItem("commande");
+              let commandeFinaleToStorage = JSON.stringify(commandeFinale);
+              localStorage.setItem("commande", `${commandeFinaleToStorage}`);
+              document.location.reload();
+              let nombrePanier = JSON.parse(localStorage.nbCommandes);
+              nombrePanier--;
+              localStorage.setItem("nbCommandes", `${nombrePanier}`);
+
+            };
+          });
+
+        };
+      };
+      request.open("GET", `http://localhost:3000/api/furniture/${commandeFinale[i].id}`);
+      request.send();
+
+
 
     }
+
+
+    //PRIX TOTAL DU PANIER
 
     //On calcule le prix total du panier.
     let sommePanier = function (cout) {
@@ -137,13 +204,106 @@
       return somme
     };
 
+    // On affiche le résultat.
     let coutTotal = document.getElementById('facture');
-    coutTotal.innerHTML = sommePanier(commandeFinale) + " €";
+    coutTotal.innerHTML = "Total : " + sommePanier(commandeFinale) + " €";
 
 
 
+    //Récupération des id des produits commandés.
+    let products = [];
+
+    for (let i in commandeFinale) {
+      const produitCommande = new Object();
+      produitCommande._id = commandeFinale[i].id;
+      products.push(produitCommande);
+    };
+
+    //FORMULAIRE
+
+    //Fonction d'affichage des erreurs d'entrée.
+
+    const verif = function(champForm) {
+      champForm.addEventListener("input", function(e){
+      if(!champForm.validity.valid){
+        champForm.classList.add("is-invalid");
+      } else if(champForm.validity.valid){
+        champForm.classList.add("is-valid");
+        champForm.classList.remove('is-invalid');
+      };
+    });
+
+    }
+
+    //Récupération des éléments input et exécution de l'affichage de la vérification.
+    let prenom = document.getElementById("prenom");
+    verif(prenom);
+    let nom = document.getElementById("nom");
+    verif(nom);
+    let ville = document.getElementById("ville");
+    verif(ville);
+    let adresse = document.getElementById("adresse");
+    verif(adresse);
+    let mail = document.getElementById("mail");
+    verif(mail);
+   
+    //ENVOI
+
+    //On configure le bouton d'envoi :
+    // - Ecoute de clic sur le bouton
+    // - On vérifie si toutes les données formulaires sont valides
+    // - On prévient l'effet submit
+    // - On construit l'objet "contact"
+    // - On construit l'objet "cestParti" contenant la demande du serveur.
+    // - On envoie les données au serveur
+    // - On récupère sa réponse que l'on stocke dans le Storage
+    
+    document.getElementById('envoiCommande').addEventListener('click', function (e) {
+  if (prenom.validity.valid & nom.validity.valid & adresse.validity.valid & ville.validity.valid & mail.validity.valid) {
+    e.preventDefault();
+    const contact = new Object();
+      contact.firstName = prenom.value;
+      contact.lastName = nom.value;
+      contact.city = ville.value;
+      contact.address = adresse.value;
+      contact.email = mail.value;
 
 
+      const cestParti = new Object();
+      cestParti.contact = contact;
+      cestParti.products = products;
+      console.log(cestParti);
+
+      var envoi = new XMLHttpRequest();
+
+      envoi.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+
+          var recup = JSON.parse(this.responseText);
+          console.log(recup);
+
+          if (confirm("Valider votre commande ?")) {
+            var commandeId = JSON.stringify(recup.orderId);
+            localStorage.setItem("commandeId", `${commandeId}`);
+            var amount = sommePanier(commandeFinale);
+            amount = JSON.stringify(amount);
+            var utilisateurName = JSON.stringify(recup.contact.firstName);
+            localStorage.setItem("userName", `${utilisateurName}`);
+            localStorage.setItem("amount", `${amount}`);
+            window.location = "commande.html";
+          };
+
+        };
+      };
+
+
+
+      envoi.open("POST", "http://localhost:3000/api/furniture/order");
+      envoi.setRequestHeader("Content-Type", "application/json");
+      envoi.send(JSON.stringify(cestParti));
+  };
+     
+    });
 
 
 

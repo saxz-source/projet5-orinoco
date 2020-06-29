@@ -16,15 +16,22 @@
     <header>
         <nav>
             <ul class="list-unstyled">
-                <li><a href="index.html">Accueil</a>
+                <li>
+                    <a href="index.html" class="flexcenter"><p>Accueil</p></a>
                 </li>
-                <li><a href="panier.html">Panier <div>
-                    <p id="contenuPanier"></p>
-                  </div></a></li>
+                <li >
+                    <a href="panier.html" class="flexcenter"> <p>Panier </p> 
+                        
+                            <p id="contenuPanier" ></p>
+                        
+                    </a>
+                </li>
             </ul>
         </nav>
+<div class="col-12 flexcenter">
+    <h1 class="col-4 flexcenter">  Orinoco</h1>
 
-        <h1>Orinoco</h1>
+</div>
     </header>
 
 
@@ -36,75 +43,85 @@
             <div class="row">
                 <div class="col-12">
                     <div class="row apercus">
-                        <ul class="col-12 col-md-8 list-unstyled apercus">
+                        <ul class="col-12 apercus">
 
-                            <li class="col-5 m-2 apercus_cadre">
+                            <li class="apercus_cadre col-5 col-md-3">
                                 <a href="produit.html?id=5be9cc611c9d440000c1421e">
                                     <div>
-                                        <img src="images/oak_1.jpg" alt="Meuble en chêne" class="mw-100"
-                                            id="crossTable" />
-                                        <ul class="list-unstyled">
+                                        <div class="cadreImage">
+                                            <img src="images/oak_1.jpg" alt="Meuble en chêne" class="image-reponsive" />
+
+                                        </div>
+                                        <ul>
                                             <li>Cross Table</li>
-                                            <li>59900</li>
+                                            <li>599 €</li>
                                         </ul>
                                     </div>
                                 </a>
                             </li>
 
-                            <li class="col-5 m-2 apercus_cadre">
+                            <li class="apercus_cadre col-5 col-md-3">
                                 <a href="produit.html?id=5beaadda1c9d440000a57d98" id="coffeeTable">
                                     <div>
-                                        <img src="images/oak_2.jpg" alt="Meuble en chêne" class="mw-100" />
-                                        <ul class="list-unstyled">
+                                        <div class="cadreImage ">
+                                            <img src="images/oak_2.jpg" alt="Meuble en chêne" class="image-reponsive"  />
+
+                                        </div>
+                                        <ul >
                                             <li>Coffee Table</li>
-                                            <li>89900</li>
+                                            <li>899 €</li>
                                         </ul>
                                     </div>
                                 </a>
                             </li>
 
-                            <li class="col-5 m-2 apercus_cadre">
+                            <li class="apercus_cadre col-5 col-md-3">
                                 <a href="produit.html?id=5beaae361c9d440000a57d99" id="diningTable">
                                     <div>
-                                        <img src="images/oak_3.jpg" alt="Meuble en chêne" class="mw-100" />
-                                        <ul class="list-unstyled">
+                                        <div class="cadreImage">
+                                            <img src="images/oak_3.jpg" alt="Meuble en chêne" class="image-reponsive" />
+
+                                        </div>
+
+                                        <ul>
                                             <li>Dining Table</li>
-                                            <li>109900</li>
+                                            <li>1099 €</li>
                                         </ul>
                                     </div>
                                 </a>
                             </li>
 
-                            <li class="col-5 m-2  apercus_cadre">
+                            <li class="apercus_cadre col-5 col-md-3">
                                 <a href="produit.html?id=5beaaf2e1c9d440000a57d9a" id="bench">
                                     <div>
-                                        <img src="images/oak_4.jpg" alt="Meuble en chêne" class="mw-100" />
-                                        <ul class="list-unstyled">
+                                        <div class="cadreImage">
+                                            <img src="images/oak_4.jpg" alt="Meuble en chêne" class="image-reponsive" />
+
+                                        </div>
+                                        <ul >
                                             <li>Bench</li>
-                                            <li>39900</li>
+                                            <li>399 €</li>
                                         </ul>
                                     </div>
                                 </a>
                             </li>
+                            <li class="apercus_cadre col-5 col-md-3">
+                                <a href="produit.html?id=5beab2061c9d440000a57d9b" id="vintageChair">
+                                    <div>
+                                        <div class="cadreImage">
+                                            <img src="images/oak_5.jpg" alt="Meuble en chêne" class="image-reponsive"  />
+
+                                        </div>
+                                        <ul >
+                                            <li>Vintage Chair</li>
+                                            <li>599 €</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </li >
                         </ul>
 
-                        <div class="col-12 col-md-4  ">
-                            <div class="row produits-right ">
-
-                                <div class="col-10 col-md-10 apercus_cadre--right ">
-                                    <a href="produit.html?id=5beab2061c9d440000a57d9b" id="vintageChair">
-                                        <div>
-                                            <img src="images/oak_5.jpg" alt="Chaise en chêne" class="mw-100" />
-                                            <ul class="list-unstyled">
-                                                <li>Vintage Chair</li>
-                                                <li>59900</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
+                        
 
 
 
@@ -116,23 +133,27 @@
 
 
     <footer id="footer">
-        <p>Orinoco</p>
+        <ul>
+            <li><a href="index.html">Liste des produits</a></li>
+            <li><a href="panier.html">Panier</a></li>
+          </ul>
+          <div class="fontEdo"> Orinoco</div>
     </footer>
 
 
 
     <script>
-        
- // 1- initalisation du nombre de produit dans le paniers.
- var panierEffectif;
-    // Définition de l'affichage du nombre de produits dans le panier.
-    panierEffectif = localStorage.nbCommandes;
-    if (localStorage.nbCommandes == undefined){
-      localStorage.nbCommandes = 0;
-    }
-   
-    let nbCommandes = document.getElementById("contenuPanier");
-    nbCommandes.innerHTML = localStorage.nbCommandes;
+
+        // 1- initalisation du nombre de produit dans le paniers.
+        var panierEffectif;
+        // Définition de l'affichage du nombre de produits dans le panier.
+        panierEffectif = localStorage.nbCommandes;
+        if (localStorage.nbCommandes == undefined) {
+            localStorage.nbCommandes = 0;
+        }
+
+        let nbCommandes = document.getElementById("contenuPanier");
+        nbCommandes.innerHTML = localStorage.nbCommandes;
 
     </script>
 

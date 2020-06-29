@@ -1,35 +1,78 @@
 <!doctype html>
 <html lang="fr">
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
 
-   
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Votre commande</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-          <ul class="list-unstyled">
-              <li><a href="#">Accueil</a>
-              </li>
-              <li><a href="#">Panier</a></li>
-          </ul>
-      </nav>
 
-      <h1>Votre Commande</h1>
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Votre commande</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="list-unstyled">
+        <li>
+          <a href="index.html" class="flexcenter">
+            <p>Accueil</p>
+          </a>
+        </li>
+        <li>
+          <a href="panier.html" class="flexcenter">
+            <p>Panier </p>
+
+            <p id="contenuPanier"></p>
+
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="col-12 flexcenter">
+      <h1 class="col-4 flexcenter"> Orinoco</h1>
+
+    </div>
   </header>
-  <main>
+
+
+  <main class="container flexcenter confirm">
+  
+      <h2>Confirmation de votre commande</h2>
+    </div>
+    <section class="flexcenter confirm">
+      <h3 id="merciUser" class="merci"> </h3>
+      <p id="conclusion" class="merci"> </p>
+      <p class="merci">Veuillez conserver cet identifiant</p>
+      <p class="merci">A bientôt sur Orinoco !</p>
+
+
+
+    </section>
+
+
+
 
   </main>
-<footer>
+  <footer>
+    <ul>
+      <li><a href="index.html">Liste des produits</a></li>
+      <li><a href="panier.html">Panier</a></li>
+    </ul>
+    <div class="fontEdo"> Orinoco</div>
+  </footer>
 
-</footer>
+  <script>
+    let amount = JSON.parse(localStorage.amount);
+    let commandeId = JSON.parse(localStorage.commandeId);
+    var userName = JSON.parse(localStorage.userName);
+    document.getElementById("conclusion").innerHTML = "Votre commande au montant de " + amount + " €" + " a pour identifiant " + commandeId + ".";
+    document.getElementById("merciUser").innerHTML = userName.charAt(0).toUpperCase() + userName.substring(1).toLowerCase() + ", nous vous remercions pour votre achat.";
 
+  </script>
 
-    
-  </body>
+</body>
+
 </html>

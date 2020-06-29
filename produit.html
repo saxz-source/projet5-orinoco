@@ -16,65 +16,75 @@
   <header>
     <nav>
       <ul class="list-unstyled">
-        <li><a href="index.html">Accueil</a>
+        <li>
+          <a href="index.html" class="flexcenter">
+            <p>Accueil</p>
+          </a>
         </li>
-        <li><a href="panier.html">Panier <div>
-              <p id="contenuPanier"></p>
-            </div></a></li>
+        <li>
+          <a href="panier.html" class="flexcenter">
+            <p>Panier </p>
+
+            <p id="contenuPanier"></p>
+
+          </a>
+        </li>
       </ul>
     </nav>
+    <div class="col-12 flexcenter">
+      <h1 class="col-4 flexcenter"> Orinoco</h1>
 
-    <h1>Votre Produit</h1>
+    </div>
   </header>
 
-  <main>
-    <div class="container">
-      <div class="col-12">
-        <div class="row">
 
-          <div class="col-6">
-            <img src="" id="imageProduit" />
-          </div>
+  <main class="container">
+    <section class="col-12 sectionProduit">
+      <div class="row">
 
-          <div class="col-6">
-            <div class="row">
-              <ul class="col- 12 list-unstyled">
-                <li id="name"></li>
-                <li>
-                  <div id="price"></div>
-                  <div>€</div>
-                </li>
-                <li id="description"></li>
-              </ul>
-              <div class="col-12">
-                <div>
-                  <p>Vernis :</p>
-                  <p id="vernisChoisi"></p>
-                </div>
-                <form action="customise">
-                  <label for="optionsCustomise"> Sélectionnez votre vernis : </label>
-                  <select name="optionsCustomise" id="optionsCustomise">
+        <div class="col-12 col-md-6 imageProduitSelect">
+          <img src="" id="imageProduit" />
+        </div>
 
-                  </select>
+        <div class="col-12 col-md-6 detailProduitSelect">
+          <div class="row">
+            <ul class="col- 12 ">
+              <li id="name"></li>
+              <li id="price"></li>
+              <li id="description"></li>
+            </ul>
 
-                  <button type="submit" id="ajoutAuPanier"> Panier </button>
+         
+              <form class="col-12">
+                <label for="optionsCustomise" id="labelSelect"> Sélectionnez votre vernis : </label>
+                <select name="optionsCustomise" id="optionsCustomise">
+
+                </select>
+
+                <button type="button" id="ajoutAuPanier"> Ajouter un panier </button>
 
 
-                </form>
+              </form>
 
-              </div>
-            </div>
+         
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </main>
+
   <footer>
+    <ul>
+      <li><a href="index.html">Liste des produits</a></li>
+      <li><a href="panier.html">Panier</a></li>
+    </ul>
+    <div class="fontEdo"> Orinoco</div>
+
 
   </footer>
 
 
-  <script defer>
+  <script>
     // Récupération de l'id dans l'URL
     let params = new URLSearchParams(document.location.search.substring(1));
     let productId = params.get("id");
@@ -86,27 +96,26 @@
     let productDescription = document.getElementById("description");
     let productCustomise = document.getElementById("optionsCustomise");
     let productImage = document.getElementById("imageProduit");
-    let productVernis = document.getElementById("vernisChoisi");
+
 
     // Récupération de l'API et intégration des données dans le document HTML.
+
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
       if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
         var response = JSON.parse(this.responseText);
-
-        console.log(response);
         productName.innerHTML = response.name;
         productImage.setAttribute("src", `${response.imageUrl}`);
-        productPrice.innerHTML = response.price/100;
+        productPrice.innerHTML = response.price / 100 + " €";
         productDescription.innerHTML = response.description;
-        productVernis.innerHTML = response.varnish[0];
+
 
         let nbOptions = response.varnish;
         for (let j in nbOptions) {
           let newOption = document.createElement("option");
           optionsCustomise.appendChild(newOption);
           newOption.innerHTML = response.varnish[j];
-          newOption.setAttribute("value", `${j}`);
+          newOption.setAttribute("value", `${response.varnish[j]}`);
           newOption.setAttribute("class", "optionVernis");
           if (j == 0) {
             newOption.setAttribute("selected", "");
@@ -117,6 +126,7 @@
     };
     request.open("GET", `http://localhost:3000/api/furniture/${productId}`);
     request.send();
+
 
 
 
@@ -147,11 +157,11 @@
         panierEffectif++;
         nbCommandes.innerHTML = panierEffectif;
         localStorage.setItem("nbCommandes", `${panierEffectif}`);
-      }
+      };
       if (localStorage.commande) {         //on récupère l'Array de la commande que l'on convertit en Js pour être utilisable.
         commande = JSON.parse(localStorage.commande);
       };
-       
+
       const item = new Object();           //on crée un nouveau produit que l'on ajoute à la commande.
       item.id = productId;
       item.vernis = productCustomise.value;
