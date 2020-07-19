@@ -18,12 +18,16 @@
       <ul class="list-unstyled">
         <li>
           <a href="index.html" class="flexcenter">
-            <p>Accueil</p>
+            <p class="acc">Accueil</p>
           </a>
         </li>
         <li>
           <a href="panier.html" class="flexcenter">
-            <p>Panier </p>
+            <p class="iconCart"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-fill"
+                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+              </svg> </p>
 
             <p id="contenuPanier"></p>
 
@@ -40,56 +44,67 @@
   <main class="container">
 
     <section>
-      <h2>Votre Panier</h2>
-      <div class="col-12" id="corpsPanier">
 
+      <h2>Votre Panier</h2>
+      <div class="row hiddenError">
+        <p> Erreur : Les données du produit que vous avez sélectionné n'ont pu être récupérées</p>
+      </div>
+      <div class="spinner-border" role="status">
+        <span class="sr-only">En attente du serveur...</span>
+      </div>
+
+      <div class="col-12 " id="corpsPanier">
+        <p id="messagePanierVide" class="toHide"> Il n'y a aucun article dans votre panier</p>
+
+
+        <div class="row panierRow toHide">
+          <div class="col-3 nameSlot"></div>
+          <div class="col-3 varnishSlot"></div>
+          <div class="col-3 priceSlot"></div>
+          <button class="col-1 removeButton" title="Cliquez pour retirer du panier"> X </button>
+        </div>
+
+      </div>
+      <div class="offset-3 col-6 offset-md-4 col-md-3" id="facture">
 
       </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="row">
-
-
-            <div class="col-3" id="facture">
-
-            </div>
-          </div>
-
-        </div>
+      </div>
       </div>
     </section>
 
-    <section>
+    <section class="toHide" id="formContact">
       <div class="row">
-        <div class="col-8 ">
+        <div class="col-12  ">
           <h2>Vos coordonnées</h2>
-          <div class="row ">
+          <div class="row flexcenter">
 
-            <form >
+            <form id="formulaireContact" class="col-md-8">
               <label for="nom">
                 Nom
               </label>
-              <input type="text" id="nom" pattern="[\p{L}' -]+" required class="col-12 form-control">
-              
+              <input type="text" id="nom" pattern="[\p{L}' -]+" maxlength="20" required class="col-12 form-control">
+
               <label for="prenom">
                 Prénom
               </label>
-              <input type="text" id="prenom" pattern="[\p{L}'-]+"  required class="col-12 form-control">
+
+              <input type="text" id="prenom" pattern="[\p{L}'-]+" maxlength="20" required class="col-12 form-control">
               <label for="adresse">
                 Adresse
               </label>
-              <input type="text" id="adresse" pattern="[0-9\p{L}' -]+" required class="col-12 form-control">
+              <input type="text" id="adresse" pattern="[0-9\p{L}' -]+" maxlength="70" required
+                class="col-12 form-control">
               <label for="ville">
                 Ville
               </label>
-              <input type="text" id="ville" pattern="[A-Za-z' -]+" required class="col-12 form-control">
+              <input type="text" id="ville" pattern="[A-Za-z' -]+" maxlength="25" required class="col-12 form-control">
               <label for="mail">
                 Mail
               </label>
-              <input type="email" id="mail" required class="col-12 form-control">
+              <input type="email" id="mail" required pattern=".+@.+\.[a-z]+" maxlength="50" class="col-12 form-control">
 
-              <button  id="envoiCommande">Envoyer ma commande</button>
+              <button id="envoiCommande">Envoyer ma commande</button>
 
             </form>
 
@@ -113,202 +128,10 @@
 
 
   </footer>
-
-
-  <script>
-
-    //RESUME DU PANIER
-
-    //On identifie l'élément HTML.
-
-    let emplacement = document.getElementById("corpsPanier");
-
-    // Si le panier est vide :
-    if (localStorage.nbCommandes < 1 || localStorage.nbCommandes == false) {
-      emplacement.innerHTML = "Il n'y a aucun article dans votre panier";
-    };
-
-    //S'il ne l'est pas : On récupère les données du produit (id, vernis choisi) depuis le localStorage.
-    let commandeFinale = JSON.parse(localStorage.commande);
-
-    //On implémente le résumé de la commande.
-
-    for (let i in commandeFinale) {                 // 
-      var request = new XMLHttpRequest();
-
-      request.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-          var response = JSON.parse(this.responseText);
-          var newRow = document.createElement('div');
-          newRow.classList.add("row");
-          newRow.classList.add("panierRow");
-          emplacement.appendChild(newRow);
-
-          var nameSlot = document.createElement('div');  // Création de l'indication du nom du produit choisi
-          nameSlot.classList.add("col-3");
-          nameSlot.innerHTML = commandeFinale[i].name;
-          newRow.appendChild(nameSlot);
-
-          var vernisSlot = document.createElement('div');  // Création de l'indication du venis choisi
-          vernisSlot.classList.add("col-3");
-          vernisSlot.innerHTML = commandeFinale[i].vernis;
-          newRow.appendChild(vernisSlot);
-
-          var prixSlot = document.createElement('div');      // Création de l'indication du prix
-          prixSlot.classList.add("col-3");
-          prixSlot.innerHTML = commandeFinale[i].prix;
-          newRow.appendChild(prixSlot);
-
-          var removeSlot = document.createElement('button');  // Création du bouton de suppression du panier
-          removeSlot.classList.add("col-1");
-          removeSlot.classList.add("removeButton");
-          removeSlot.setAttribute("title", "Cliquer pour retirer du panier");
-          removeSlot.innerHTML = "X";
-          newRow.appendChild(removeSlot);
-          removeSlot.addEventListener('click', function (e) {     // On configure le bouton de suppression du panier
-            e.preventDefault();
-            if (confirm('Retirer cet article ?')) {
-              var pos = commandeFinale.indexOf(commandeFinale[i]);
-              console.log(pos);
-              commandeFinale.splice(pos, 1);
-              console.log(commandeFinale);
-              localStorage.removeItem("commande");
-              let commandeFinaleToStorage = JSON.stringify(commandeFinale);
-              localStorage.setItem("commande", `${commandeFinaleToStorage}`);
-              document.location.reload();
-              let nombrePanier = JSON.parse(localStorage.nbCommandes);
-              nombrePanier--;
-              localStorage.setItem("nbCommandes", `${nombrePanier}`);
-
-            };
-          });
-
-        };
-      };
-      request.open("GET", `http://localhost:3000/api/furniture/${commandeFinale[i].id}`);
-      request.send();
-
-
-
-    }
-
-
-    //PRIX TOTAL DU PANIER
-
-    //On calcule le prix total du panier.
-    let sommePanier = function (cout) {
-      let somme = 0;
-      for (let i in cout) {
-        somme = somme + parseInt(cout[i].prix);
-      };
-      return somme
-    };
-
-    // On affiche le résultat.
-    let coutTotal = document.getElementById('facture');
-    coutTotal.innerHTML = "Total : " + sommePanier(commandeFinale) + " €";
-
-
-
-    //Récupération des id des produits commandés.
-    let products = [];
-
-    for (let i in commandeFinale) {
-      const produitCommande = new Object();
-      produitCommande._id = commandeFinale[i].id;
-      products.push(produitCommande);
-    };
-
-    //FORMULAIRE
-
-    //Fonction d'affichage des erreurs d'entrée.
-
-    const verif = function(champForm) {
-      champForm.addEventListener("input", function(e){
-      if(!champForm.validity.valid){
-        champForm.classList.add("is-invalid");
-      } else if(champForm.validity.valid){
-        champForm.classList.add("is-valid");
-        champForm.classList.remove('is-invalid');
-      };
-    });
-
-    }
-
-    //Récupération des éléments input et exécution de l'affichage de la vérification.
-    let prenom = document.getElementById("prenom");
-    verif(prenom);
-    let nom = document.getElementById("nom");
-    verif(nom);
-    let ville = document.getElementById("ville");
-    verif(ville);
-    let adresse = document.getElementById("adresse");
-    verif(adresse);
-    let mail = document.getElementById("mail");
-    verif(mail);
-   
-    //ENVOI
-
-    //On configure le bouton d'envoi :
-    // - Ecoute de clic sur le bouton
-    // - On vérifie si toutes les données formulaires sont valides
-    // - On prévient l'effet submit
-    // - On construit l'objet "contact"
-    // - On construit l'objet "cestParti" contenant la demande du serveur.
-    // - On envoie les données au serveur
-    // - On récupère sa réponse que l'on stocke dans le Storage
-    
-    document.getElementById('envoiCommande').addEventListener('click', function (e) {
-  if (prenom.validity.valid & nom.validity.valid & adresse.validity.valid & ville.validity.valid & mail.validity.valid) {
-    e.preventDefault();
-    const contact = new Object();
-      contact.firstName = prenom.value;
-      contact.lastName = nom.value;
-      contact.city = ville.value;
-      contact.address = adresse.value;
-      contact.email = mail.value;
-
-
-      const cestParti = new Object();
-      cestParti.contact = contact;
-      cestParti.products = products;
-      console.log(cestParti);
-
-      var envoi = new XMLHttpRequest();
-
-      envoi.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-
-          var recup = JSON.parse(this.responseText);
-          console.log(recup);
-
-          if (confirm("Valider votre commande ?")) {
-            var commandeId = JSON.stringify(recup.orderId);
-            localStorage.setItem("commandeId", `${commandeId}`);
-            var amount = sommePanier(commandeFinale);
-            amount = JSON.stringify(amount);
-            var utilisateurName = JSON.stringify(recup.contact.firstName);
-            localStorage.setItem("userName", `${utilisateurName}`);
-            localStorage.setItem("amount", `${amount}`);
-            window.location = "commande.html";
-          };
-
-        };
-      };
-
-
-
-      envoi.open("POST", "http://localhost:3000/api/furniture/order");
-      envoi.setRequestHeader("Content-Type", "application/json");
-      envoi.send(JSON.stringify(cestParti));
-  };
-     
-    });
-
-
-
-  </script>
-
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script src="layouts.js"></script>
+  <script src="fonctions.js">  </script>
+  <script src="panier.js">  </script>
 
 </body>
 

@@ -9926,6 +9926,10 @@ h3 {
   align-items: center;
 }
 
+.tcenter {
+  text-align: center;
+}
+
 a {
   text-decoration: none;
 }
@@ -9934,7 +9938,7 @@ a:hover {
 }
 
 h2 {
-  padding: 2.5rem 2rem 2rem;
+  padding: 3rem 2rem 2rem;
   font-family: "edo";
   letter-spacing: 3px;
 }
@@ -9951,8 +9955,16 @@ ul, li {
   font-family: "edo";
 }
 
+main {
+  min-height: 75vh;
+}
+
+.toHide {
+  display: none;
+}
+
 nav {
-  padding: 1.1% 10%;
+  padding: 0.2% 8%;
   background: linear-gradient(to bottom, #8F5BFE 80%, #E68A21);
 }
 nav ul {
@@ -9961,18 +9973,27 @@ nav ul {
   align-items: center;
   margin: 0;
 }
-nav ul li a p {
+nav ul li a .acc {
   color: #E68A21;
   font-size: 1.5rem;
   padding: 0 15px;
 }
+nav ul li:hover {
+  text-decoration: underline;
+  text-decoration-color: #E68A21;
+}
+
+.iconCart {
+  position: relative;
+  color: white;
+  font-size: 3em;
+}
 
 #contenuPanier {
-  border-radius: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  z-index: 2;
+  color: #E68A21;
+  font-size: 1.7rem;
 }
 
 h1 {
@@ -9983,6 +10004,7 @@ h1 {
   margin-top: -2rem;
   padding: 0.8rem;
   font-family: "edo";
+  font-size: 1.5rem;
 }
 
 footer {
@@ -10003,6 +10025,19 @@ footer a {
   margin-top: 30px;
 }
 
+.hiddenError {
+  font-size: 2em;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+#messagePanierVide {
+  height: 75vh;
+}
+
 .apercus {
   display: flex;
   justify-content: space-around;
@@ -10020,8 +10055,23 @@ footer a {
   overflow: hidden;
 }
 .apercus_cadre .cadreImage {
-  height: 28vh;
   border-bottom: 2px solid black;
+  height: 14vh;
+}
+@media (min-width: 576px) {
+  .apercus_cadre .cadreImage {
+    height: 18vh;
+  }
+}
+@media (min-width: 768px) {
+  .apercus_cadre .cadreImage {
+    height: 22vh;
+  }
+}
+@media (min-width: 992px) {
+  .apercus_cadre .cadreImage {
+    height: 25vh;
+  }
 }
 .apercus_cadre .cadreImage img {
   width: 100%;
@@ -10121,6 +10171,8 @@ select {
 
 .panierRow {
   padding: 0.5rem 0;
+  border-bottom: 1px solid #8F5BFE;
+  border-top: 1px solid #8F5BFE;
 }
 
 #envoiCommande {
@@ -10137,12 +10189,28 @@ select {
 
 #facture {
   font-size: 1.5rem;
+  color: black;
+  font-weight: bold;
   border: 1.5px solid #8F5BFE;
   border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+#formulaireContact {
+  width: 100%;
+  padding: 0 3%;
+}
+#formulaireContact label {
+  color: black;
+  font-weight: bold;
+}
+#formulaireContact input {
+  border: 2px groove black;
+  margin: auto;
+  border-radius: 30px;
 }
 
 .confirm {
@@ -10152,6 +10220,11 @@ select {
   padding: 3rem;
 }
 .confirm p {
+  text-align: center;
+}
+
+#merciUser {
+  font-size: 1.5rem;
   text-align: center;
 }
 

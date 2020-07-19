@@ -18,17 +18,10 @@
       <ul class="list-unstyled">
         <li>
           <a href="index.html" class="flexcenter">
-            <p>Accueil</p>
+            <p class="acc">Accueil</p>
           </a>
         </li>
-        <li>
-          <a href="panier.html" class="flexcenter">
-            <p>Panier </p>
-
-            <p id="contenuPanier"></p>
-
-          </a>
-        </li>
+       
       </ul>
     </nav>
     <div class="col-12 flexcenter">
@@ -40,13 +33,13 @@
 
   <main class="container flexcenter confirm">
   
-      <h2>Confirmation de votre commande</h2>
+      <h2 class="flexcenter tcenter">Confirmation de votre commande</h2>
     </div>
     <section class="flexcenter confirm">
-      <h3 id="merciUser" class="merci"> </h3>
-      <p id="conclusion" class="merci"> </p>
-      <p class="merci">Veuillez conserver cet identifiant</p>
-      <p class="merci">A bientôt sur Orinoco !</p>
+      <h3 id="merciUser" class="merci flexcenter"> </h3>
+      <p id="conclusion" class="merci flexcenter"> </p>
+      <p class="merci flexcenter">Veuillez conserver cet identifiant</p>
+      <p class="merci flexcenter">A bientôt sur Orinoco !</p>
 
 
 
@@ -64,15 +57,9 @@
     <div class="fontEdo"> Orinoco</div>
   </footer>
 
-  <script>
-    let amount = JSON.parse(localStorage.amount);
-    let commandeId = JSON.parse(localStorage.commandeId);
-    var userName = JSON.parse(localStorage.userName);
-    document.getElementById("conclusion").innerHTML = "Votre commande au montant de " + amount + " €" + " a pour identifiant " + commandeId + ".";
-    document.getElementById("merciUser").innerHTML = userName.charAt(0).toUpperCase() + userName.substring(1).toLowerCase() + ", nous vous remercions pour votre achat.";
-
-  </script>
-
+  <script src="fonctions.js"></script>
+  
+  <script src="commande.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,7 @@
 
 
   <link rel="stylesheet" href="css/style.css">
-
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   <title>Votre produit</title>
 </head>
 
@@ -18,12 +18,16 @@
       <ul class="list-unstyled">
         <li>
           <a href="index.html" class="flexcenter">
-            <p>Accueil</p>
+            <p class="acc">Accueil</p>
           </a>
         </li>
         <li>
           <a href="panier.html" class="flexcenter">
-            <p>Panier </p>
+            <p class="iconCart"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-fill"
+                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+              </svg> </p>
 
             <p id="contenuPanier"></p>
 
@@ -39,8 +43,14 @@
 
 
   <main class="container">
-    <section class="col-12 sectionProduit">
-      <div class="row">
+    <section class="col-12 ">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">En attente du serveur...</span>
+      </div>
+      <div class="row hiddenError">
+        <p> Erreur : Les données du produit que vous avez sélectionné n'ont pu être récupérées</p>
+      </div>
+      <div class="row sectionProduit">
 
         <div class="col-12 col-md-6 imageProduitSelect">
           <img src="" id="imageProduit" />
@@ -54,19 +64,19 @@
               <li id="description"></li>
             </ul>
 
-         
-              <form class="col-12">
-                <label for="optionsCustomise" id="labelSelect"> Sélectionnez votre vernis : </label>
-                <select name="optionsCustomise" id="optionsCustomise">
 
-                </select>
+            <form class="col-12 toHide" id="formCustomise">
+              <label for="optionsCustomise" id="labelSelect"> Sélectionnez votre vernis : </label>
+              <select name="optionsCustomise" id="optionsCustomise">  </select>
 
-                <button type="button" id="ajoutAuPanier"> Ajouter un panier </button>
+              <button type="button" id="ajoutAuPanier"> Ajouter un panier </button>
+            </form>
+
+            <div class="col-12">
+              <p id="messageAjout"></p>
+            </div>
 
 
-              </form>
-
-         
           </div>
         </div>
       </div>
@@ -84,101 +94,15 @@
   </footer>
 
 
-  <script>
-    // Récupération de l'id dans l'URL
-    let params = new URLSearchParams(document.location.search.substring(1));
-    let productId = params.get("id");
-    console.log(productId);
 
-    // Récupération des éléments DOM
-    let productName = document.getElementById("name");
-    let productPrice = document.getElementById("price");
-    let productDescription = document.getElementById("description");
-    let productCustomise = document.getElementById("optionsCustomise");
-    let productImage = document.getElementById("imageProduit");
-
-
-    // Récupération de l'API et intégration des données dans le document HTML.
-
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-      if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        productName.innerHTML = response.name;
-        productImage.setAttribute("src", `${response.imageUrl}`);
-        productPrice.innerHTML = response.price / 100 + " €";
-        productDescription.innerHTML = response.description;
-
-
-        let nbOptions = response.varnish;
-        for (let j in nbOptions) {
-          let newOption = document.createElement("option");
-          optionsCustomise.appendChild(newOption);
-          newOption.innerHTML = response.varnish[j];
-          newOption.setAttribute("value", `${response.varnish[j]}`);
-          newOption.setAttribute("class", "optionVernis");
-          if (j == 0) {
-            newOption.setAttribute("selected", "");
-          };
-        };
-
-      };
-    };
-    request.open("GET", `http://localhost:3000/api/furniture/${productId}`);
-    request.send();
+  <script src="fonctions.js"></script>
+  <script src="layouts.js"></script>
+  <script src="produit.js"></script>
 
 
 
 
-    //Création de la commande :
-    let commande = [];
 
-
-    // Initalisation du nombre de produit dans le paniers.
-    var panierEffectif;
-
-    // Définition de l'affichage du nombre de produits dans le panier.
-    panierEffectif = localStorage.nbCommandes;
-    if (localStorage.nbCommandes == undefined) {
-      localStorage.nbCommandes = 0;
-    };
-    let nbCommandes = document.getElementById("contenuPanier");
-    nbCommandes.innerHTML = localStorage.nbCommandes;
-
-
-    // Clic sur le panier : Ajout de la commande dans le localStorage, incrémentation du nombre de produits.
-    document.getElementById("ajoutAuPanier").addEventListener("click", function (e) {
-      e.preventDefault();
-      if (panierEffectif == 0) {            //Incrémentation du nombre, affichage, puis stockage dans le Storage.
-        panierEffectif++;
-        nbCommandes.innerHTML = panierEffectif;
-        localStorage.setItem("nbCommandes", `${panierEffectif}`);
-      } else if (panierEffectif > 0) {
-        panierEffectif++;
-        nbCommandes.innerHTML = panierEffectif;
-        localStorage.setItem("nbCommandes", `${panierEffectif}`);
-      };
-      if (localStorage.commande) {         //on récupère l'Array de la commande que l'on convertit en Js pour être utilisable.
-        commande = JSON.parse(localStorage.commande);
-      };
-
-      const item = new Object();           //on crée un nouveau produit que l'on ajoute à la commande.
-      item.id = productId;
-      item.vernis = productCustomise.value;
-      item.prix = productPrice.innerHTML;
-      item.name = productName.innerHTML;
-      console.log(commande);
-      commande.push(item);
-
-      let commandeToStorage = JSON.stringify(commande); //on envoie les données au Storage.
-      localStorage.setItem("commande", `${commandeToStorage}`);
-
-    });
-
-
-
-
-  </script>
 
 
 
