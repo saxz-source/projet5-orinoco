@@ -1,19 +1,14 @@
-
 // 0 AFFICHAGE DU NOMBRE DE PRODUITS DANS LE PANIER
 // > from "layouts.js"
-
-
 
 // I Récupération de l'id dans l'URL
 
 let url = new URL(document.location);
 var search_params = new URLSearchParams(url.search);
-let productId =search_params.get('id');
-
+let productId = search_params.get('id');
 
 // II AFFICHAGE DYMANIQUE DU PRODUIT
 //  - 1 / Récupération des éléments DOM
-
 let productName = document.getElementById("name");
 let productPrice = document.getElementById("price");
 let productDescription = document.getElementById("description");
@@ -31,7 +26,7 @@ let messageAjout = document.getElementById("messageAjout");
 
 makeRequest('GET', `http://localhost:3000/api/furniture/${productId}`)
   .then(function (response) {
-    
+
     productName.innerHTML = response.name;
     productImage.setAttribute("src", `${response.imageUrl}`);
     productPrice.innerHTML = response.price / 100 + " €";
@@ -44,9 +39,7 @@ makeRequest('GET', `http://localhost:3000/api/furniture/${productId}`)
       newOption.innerHTML = response.varnish[j];
       newOption.setAttribute("value", `${response.varnish[j]}`);
       newOption.setAttribute("class", "optionVernis");
-      if (j == 0) {
-        newOption.setAttribute("selected", "");
-      };
+      if (j == 0) newOption.setAttribute("selected", "")
     };
     $(".spinner-border").hide();
     $(".sectionProduit").show();
@@ -56,16 +49,13 @@ makeRequest('GET', `http://localhost:3000/api/furniture/${productId}`)
     console.error("Erreur, nous ne parvenons à afficher votre produit", err.statusText);
     $(".spinner-border").hide();
     $(".hiddenError").show();
-
   });
-
 
 
 // III AJOUT D'UN PRODUIT AU PANIER
 
 //  - 1/ Création de la commande :
 let commande = [];
-
 //  - 2/ Ajout d'un événement onclick sur le bouton.
 //  - 3/ Au clic :
 //      - Incrémentation du nombre de produits dans le panier, affichage, puis stockage dans le Storage.
@@ -74,27 +64,22 @@ let commande = [];
 //      - Envoi du produit au Storage.
 //      - Affichage d'un message de succès à l'utilisateur.
 
-
 document.getElementById("ajoutAuPanier").addEventListener("click", function (e) {
   e.preventDefault();
-  if (panierEffectif == undefined) {
-    panierEffectif =0;          
-  } 
-    panierEffectif++;
-    nbCommandes.innerHTML = panierEffectif;
-    localStorage.setItem("nbCommandes", `${panierEffectif}`);
+  if (panierEffectif === undefined) panierEffectif = 0;
 
-  if (localStorage.commande) {         
-    commande = JSON.parse(localStorage.commande);
-  };
+  panierEffectif++;
+  nbCommandes.innerHTML = panierEffectif;
+  localStorage.setItem("nbCommandes", `${panierEffectif}`);
 
-  const item = new Object();           
+  if (localStorage.commande) commande = JSON.parse(localStorage.commande);
+ 
+  const item = new Object();
   item.id = productId;
   item.vernis = productCustomise.value;
   commande.push(item);
 
-  let commandeToStorage = JSON.stringify(commande); 
+  let commandeToStorage = JSON.stringify(commande);
   localStorage.setItem("commande", `${commandeToStorage}`);
   messageAjout.innerHTML = "Le produit a bien été ajouté au panier";
-
 });

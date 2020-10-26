@@ -2,14 +2,10 @@
 <html lang="fr">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
   <link rel="stylesheet" href="css/style.css">
-
-  <title>Votre panier</title>
+  <title>Votre panier |Orinoco</title>
 </head>
 
 <body>
@@ -28,23 +24,18 @@
                 <path fill-rule="evenodd"
                   d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg> </p>
-
             <p id="contenuPanier"></p>
-
           </a>
         </li>
       </ul>
     </nav>
     <div class="col-12 flexcenter">
       <h1 class="col-4 flexcenter"> Orinoco</h1>
-
     </div>
   </header>
 
   <main class="container">
-
     <section>
-
       <h2>Votre Panier</h2>
       <div class="row hiddenError">
         <p> Erreur : Les données du produit que vous avez sélectionné n'ont pu être récupérées</p>
@@ -52,23 +43,17 @@
       <div class="spinner-border" role="status">
         <span class="sr-only">En attente du serveur...</span>
       </div>
-
       <div class="col-12 " id="corpsPanier">
         <p id="messagePanierVide" class="toHide"> Il n'y a aucun article dans votre panier</p>
-
-
         <div class="row panierRow toHide">
           <div class="col-3 nameSlot"></div>
           <div class="col-3 varnishSlot"></div>
           <div class="col-3 priceSlot"></div>
           <button class="col-1 removeButton" title="Cliquez pour retirer du panier"> X </button>
         </div>
-
       </div>
       <div class="offset-3 col-6 offset-md-4 col-md-3" id="facture">
-
       </div>
-
       </div>
       </div>
     </section>
@@ -78,17 +63,14 @@
         <div class="col-12  ">
           <h2>Vos coordonnées</h2>
           <div class="row flexcenter">
-
             <form id="formulaireContact" class="col-md-8">
               <label for="nom">
                 Nom
               </label>
               <input type="text" id="nom" pattern="[\p{L}' -]+" maxlength="20" required class="col-12 form-control">
-
               <label for="prenom">
                 Prénom
               </label>
-
               <input type="text" id="prenom" pattern="[\p{L}'-]+" maxlength="20" required class="col-12 form-control">
               <label for="adresse">
                 Adresse
@@ -103,36 +85,26 @@
                 Mail
               </label>
               <input type="email" id="mail" required pattern=".+@.+\.[a-z]+" maxlength="50" class="col-12 form-control">
-
               <button id="envoiCommande">Envoyer ma commande</button>
-
             </form>
-
-
-
           </div>
         </div>
       </div>
     </section>
-
-
-
-
   </main>
+
   <footer>
     <ul>
       <li><a href="index.html">Liste des produits</a></li>
       <li><a href="panier.html">Panier</a></li>
     </ul>
     <div class="fontEdo"> Orinoco</div>
-
-
   </footer>
+
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   <script src="layouts.js"></script>
   <script src="fonctions.js">  </script>
   <script src="panier.js">  </script>
-
 </body>
 
 </html>

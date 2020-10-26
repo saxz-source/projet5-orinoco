@@ -17,7 +17,7 @@ function makeRequest(method, url, envoi) {
         var response = JSON.parse(this.responseText);
         resolve(response);
       } else {
-        
+
         reject({
           status: this.status,
           statusText: request.statusText
@@ -26,8 +26,7 @@ function makeRequest(method, url, envoi) {
       }
     };
     request.onerror = function () {
- 
-      reject({     
+      reject({
         status: this.status,
         statusText: request.statusText
       });
@@ -38,7 +37,6 @@ function makeRequest(method, url, envoi) {
       request.setRequestHeader("Content-Type", "application/json");
       request.send(envoi);
     };
-
   });
 };
 

@@ -81,14 +81,9 @@ for (let i in commandeFinale) {
 };
 
 
-
-
-
-
 //  II FORMULAIRE
 
 //  - 1/ Fonction d'affichage des erreurs d'entrée.
-
 const verif = function (champForm) {
     champForm.addEventListener("input", function (e) {
         if (!champForm.validity.valid) {
@@ -144,13 +139,11 @@ document.getElementById("envoiCommande").addEventListener("click", function (e) 
         contact.address = adresse.value;
         contact.email = mail.value;
 
-
         const cestParti = new Object();
         cestParti.contact = contact;
         cestParti.products = products;
         console.log(cestParti);
         let formatCestParti = JSON.stringify(cestParti);
-
 
         makeRequest("POST", "http://localhost:3000/api/furniture/order", formatCestParti)
             .then(function (response) {
@@ -165,7 +158,6 @@ document.getElementById("envoiCommande").addEventListener("click", function (e) 
                     window.location = "commande.html";
 
                 };
-
             })
             .catch(function (err) {
                 console.error("Echec du stockage des données", err.statusText);
