@@ -9993,7 +9993,8 @@ nav ul li:hover {
   position: absolute;
   z-index: 2;
   color: #E68A21;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+  margin-top: 10px;
 }
 
 h1 {
@@ -10104,6 +10105,7 @@ footer a {
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
+  margin-top: 10px;
 }
 
 #optionsCustomise {
