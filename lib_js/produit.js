@@ -39,7 +39,7 @@ makeRequest('GET', `http://localhost:3000/api/furniture/${productId}`)
       newOption.innerHTML = response.varnish[j];
       newOption.setAttribute("value", `${response.varnish[j]}`);
       newOption.setAttribute("class", "optionVernis");
-      if (j == 0) newOption.setAttribute("selected", "")
+      if (j === 0) newOption.setAttribute("selected", "")
     };
     $(".spinner-border").hide();
     $(".sectionProduit").show();

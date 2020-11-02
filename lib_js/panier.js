@@ -130,7 +130,12 @@ for (let i in commandeFinale) {
 //      - On redirige l'utilisateur vers la page de confirmation de commande.
 
 document.getElementById("envoiCommande").addEventListener("click", function (e) {
-    if (prenom.validity.valid && nom.validity.valid && adresse.validity.valid && ville.validity.valid & mail.validity.valid && localStorage.commande) {
+    if (prenom.validity.valid
+        && nom.validity.valid
+        && adresse.validity.valid
+        && ville.validity.valid
+        && mail.validity.valid
+        && localStorage.commande) {
         e.preventDefault();
         const contact = new Object();
         contact.firstName = prenom.value;
