@@ -32,13 +32,12 @@ makeRequest('GET', `http://localhost:3000/api/furniture`)
             let priceLi = document.createElement("li");
             listInfos.appendChild(priceLi)
             priceLi.innerHTML = response[i].price / 100 + " €"
-
         }
         $(".spinner-border").hide();
 
     })
     .catch(function (err) {
-        console.error("Erreur, nous ne parvenons à afficher votre produit", err.statusText);
+        displayProducts.innerHTML = "Erreur, nous ne parvenons à afficher vos produits. Réessayez plus tard";
+        console.log(err.statusText);
         $(".spinner-border").hide();
-        $(".hiddenError").show();
     });
